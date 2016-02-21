@@ -8,6 +8,8 @@
 
 namespace MauricioBernal\EloquentAuditing;
 
+use MauricioBernal\EloquentAuditing\Entities\AuditLog;
+
 trait Auditing
 {
     protected static $defaultAuditEvents = [ 'created', 'updated', 'deleted' ];
@@ -23,12 +25,11 @@ trait Auditing
 
     /**
      * Audit model.
-     *
-     * @var Model $this
-     *
-     * @return Log
+     **
+     * @param string $type
+     * @return AuditLog
      */
-    public function audit($type)
+    public function audit( $type )
     {
         $logAuditing = [
             'old_value'  => json_encode($this->getDirty()),
@@ -40,7 +41,23 @@ trait Auditing
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime(),
         ];
-        return Log::insert($logAuditing);
+        return AuditLog::insert($logAuditing);
+    }
+
+    /**
+     * Get user identifier
+     */
+    protected function getUserId()
+    {
+        try {
+            if (\Auth::check()) {
+                return \Auth::user()->getAuthIdentifier();
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return null;
     }
 
     /**
