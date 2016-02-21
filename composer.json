@@ -1,0 +1,20 @@
+{
+    "name": "mauriciobernal/EloquentAuditing",
+    "description": "Eloquent helper class to handle auditing",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Mauricio Bernal",
+            "email": "mauro.b45@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MauricioBernal\\EloquentAuditing\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
