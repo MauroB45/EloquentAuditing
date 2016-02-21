@@ -8,7 +8,6 @@
 
 namespace MauricioBernal\EloquentAuditing;
 
-
 trait Auditing
 {
     protected static $defaultAuditEvents = [ 'created', 'updated', 'deleted' ];
@@ -17,14 +16,31 @@ trait Auditing
     {
         foreach (static::getAuditEvents() as $event) {
             static::$event(function ( $model ) use ( $event ) {
-                $model->recordEvent();
+                $model->audit($event);
             });
         }
     }
 
-    public function recordEvent( $event )
+    /**
+     * Audit model.
+     *
+     * @var Model $this
+     *
+     * @return Log
+     */
+    public function audit($type)
     {
-
+        $logAuditing = [
+            'old_value'  => json_encode($this->getDirty()),
+            'new_value'  => json_encode($this->getDirty()),
+            'owner_type' => get_class($this),
+            'owner_id'   => $this->getKey(),
+            'user_id'    => $this->getUserId(),
+            'type'       => $type,
+            'created_at' => new \DateTime(),
+            'updated_at' => new \DateTime(),
+        ];
+        return Log::insert($logAuditing);
     }
 
     /**
