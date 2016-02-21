@@ -1,5 +1,5 @@
 {
-    "name": "mauriciobernal/EloquentAuditing",
+    "name": "mauriciobernal/eloquentauditing",
     "description": "Eloquent helper class to handle auditing",
     "license": "MIT",
     "minimum-stability": "stable",
