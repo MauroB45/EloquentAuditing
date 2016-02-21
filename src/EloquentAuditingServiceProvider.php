@@ -25,7 +25,7 @@ class EloquentAuditingServiceProvider extends ServiceProvider
      */
     protected function setupMigrations( Application $app )
     {
-        $source = realpath(__DIR__ . '/migrations/');
+        $source = realpath(__DIR__ . '/../migrations/');
         if ($app instanceof LaravelApp && $app->runningInConsole()) {
             $this->publishes([ $source => database_path('migrations') ], 'migrations');
         }
