@@ -32,14 +32,13 @@ trait Auditing
     public function audit( $type )
     {
         $logAuditing = [
-            'old_value'  => json_encode($this->getDirty()),
+            'old_value'  => json_encode(array_intersect_key($this->getOriginal(),$this->getDirty())),
             'new_value'  => json_encode($this->getDirty()),
             'owner_type' => get_class($this),
             'owner_id'   => $this->getKey(),
             'user_id'    => $this->getUserId(),
             'type'       => $type,
-            'created_at' => new \DateTime(),
-            'updated_at' => new \DateTime(),
+            'created_at' => new \DateTime()
         ];
         return AuditLog::insert($logAuditing);
     }
