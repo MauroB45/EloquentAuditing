@@ -59,6 +59,7 @@ trait Auditing
             'new_value'   => json_encode($this->getDirty()),
             'application' => $this->getApplicationName(),
             'owner_type'  => get_class($this),
+            'owner_name'  => $this->getTable(),
             'owner_id'    => $this->getKey(),
             'user_id'     => $this->getUserId(),
             'type'        => $type,

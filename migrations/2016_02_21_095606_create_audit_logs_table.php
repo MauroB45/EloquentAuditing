@@ -17,6 +17,7 @@ class CreateAuditLogsTable extends Migration
             $table->string('application');
             $table->integer('user_id')->nullable();
             $table->string('owner_type');
+            $table->string('owner_name');
             $table->integer('owner_id');
             $table->string('type');
             $table->text('old_value')->nullable();
